@@ -1,28 +1,61 @@
 #!/bin/sh
-
-mysqld_safe &
+# Author : Virink <virink@outlook.com>
+# Date   : 2019/12/16, 17:12
 
 mysql_ready() {
-	mysqladmin ping --host=127.0.0.1 --user=root --password=root > /dev/null 2>&1
+    mysqladmin ping -h 127.0.0.1 -uping -pping > /dev/null 2>&1
 }
 
 while !(mysql_ready)
 do
-	echo "waiting for mysql ..."
+<<<<<<< HEAD
+	echo "[+] Waiting for mysql ..."
 	sleep 3
 done
 
-if [[ -f /flag.sh ]]; then
-	source /flag.sh
+
+=======
+    mysql_ready
+    if [ $? -ne 0 ]; then
+        mysqld_safe &
+    fi
+    sleep 3s
+done
+
+>>>>>>> 5e284c2... Update Base Image and Optimize
+if [[ -f /var/www/html/db.sql ]]; then
+    mysql -h 127.0.0.1 -uroot -proot -e "source /var/www/html/db.sql"
+    rm -f /var/www/html/db.sql
 fi
 
-if [[ -f /var/www/html/db.sql ]]; then
-    mysql -e "source /var/www/html/db.sql" -uroot -proot
-    rm -f /var/www/html/db.sql
+if [[ -f /flag.sh ]]; then
+<<<<<<< HEAD
+	source /flag.sh
 fi
 
 php-fpm &
 
 nginx &
 
-tail -F /dev/null
+tail -F /var/log/nginx/*.log
+=======
+    source /flag.sh
+fi
+
+while true
+do
+    mysql_ready
+    if [ $? -ne 0 ]; then
+        mysqld_safe &
+    fi
+    ps -e | grep 'php-fpm' > /dev/null
+    if [ $? -ne 0 ]; then
+        php-fpm &
+    fi
+    ps -e | grep 'nginx:' > /dev/null
+    if [ $? -ne 0 ]; then
+        nginx &
+    fi
+    sleep 5s
+done
+>>>>>>> 5e284c2... Update Base Image and Optimize
