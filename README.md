@@ -12,11 +12,7 @@
 
 ### ENV
 
-<<<<<<< HEAD
-- FLAG=CTFTraining{nginx_mysql_php_74}
-=======
 - FLAG=ctfhub{nginx_mysql_php_74}
->>>>>>> 5e284c2... Update Base Image and Optimize
 
 You should rewrite flag.sh when you use this image.
 The `$FLAG` is not mandatory, but i hope you use it!
@@ -29,8 +25,6 @@ The `$FLAG` is not mandatory, but i hope you use it!
     + ...etc
 - Dockerfile
 - docker-compose.yml
-<<<<<<< HEAD
-=======
 
 #### db.sql
 
@@ -45,21 +39,13 @@ use ctfhub;
 
 -- create table...
 ```
->>>>>>> 5e284c2... Update Base Image and Optimize
 
 ### Dockerfile
 
 ```
-<<<<<<< HEAD
-FROM ctftraining/base_image_nginx_mysql_php_74
-
-COPY src /var/www/html
-COPY flag.sh /flag.sh
-=======
 FROM ctfhub/base_web_nginx_mysql_php_74
 
 COPY src /var/www/html
 COPY _files/flag.sh /flag.sh
->>>>>>> 5e284c2... Update Base Image and Optimize
 ```
 
