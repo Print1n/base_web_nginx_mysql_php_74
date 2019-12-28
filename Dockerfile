@@ -4,7 +4,7 @@ LABEL Organization="CTFHUB" Author="Virink <virink@outlook.com>"
 
 COPY _files /tmp/
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories \
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
     && apk add --update --no-cache tar nginx mysql mysql-client \
     && mkdir /run/nginx \
     # mysql ext
@@ -15,8 +15,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
     && mysql_install_db --user=mysql --datadir=/var/lib/mysql \
     && sh -c 'mysqld_safe &' \
     && sleep 5s \
-    && mysqladmin -h '127.0.0.1' -uroot password 'root' \
-    && mysql -h '127.0.0.1' -uroot -proot -e "create user ping@'%' identified by 'ping';" \
+    && mysqladmin -uroot password 'root' \
+    && mysql -uroot -proot -e "create user ping@'%' identified by 'ping';" \
     # configure file
     && mv /tmp/flag.sh /flag.sh \
     && mv /tmp/docker-php-entrypoint /usr/local/bin/docker-php-entrypoint \
