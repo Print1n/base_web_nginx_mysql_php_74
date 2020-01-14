@@ -1,4 +1,4 @@
-# Base Image LNMP
+# 基础镜像 WEB Nginx Mariadb PHP 7.4
 
 - L: Linux alpine
 - N: Nginx
